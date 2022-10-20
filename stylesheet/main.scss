@@ -1,0 +1,560 @@
+$white: hsl(0, 0%, 100%);
+$Orange: hsl(26, 100%, 55%);
+$Light-grayish-blue: hsl(223, 64%, 98%);
+$Grayish-blue: hsl(220, 14%, 75%);
+$Very-dark-blue: hsl(220, 13%, 13%);
+$Dark-grayish-blue: hsl(219, 9%, 45%);
+$Pale-orange: hsl(25, 100%, 94%);
+$light-box-background: hsl(0, 0%, 0%);
+$Orange-filter-value: invert(65%) sepia(12%) saturate(6570%) hue-rotate(0deg)
+  brightness(106%) contrast(106%);
+$pale-orange-filter: invert(20%) sepia(50%) saturate(877%) hue-rotate(300deg)
+  brightness(106%) contrast(300%);
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@500&display=swap");
+@mixin flexAlign($justify: flex-end) {
+  display: flex;
+  align-items: center;
+  justify-content: $justify;
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+body {
+  font-family: "Kumbh Sans", sans-serif;
+}
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  @media only screen and (min-width: 820px) {
+    padding: 0 6rem;
+  }
+  .cart-container {
+    position: absolute;
+    display: none;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, 0);
+    width: 95vw;
+    min-height: 14rem;
+    background-color: $white;
+    border-radius: 8px;
+    z-index: 600;
+    padding: 1rem;
+
+    @media only screen and (min-width: 820px) {
+        min-height: 11rem;
+        box-shadow: $Grayish-blue 0px 20px 30px -10px;
+        
+
+      }
+    h5 {
+      margin-bottom: .5rem;
+      font-weight: bold;
+    }
+    .cart-hr {
+      background-color: $Light-grayish-blue;
+        display: block;
+      border: none;
+      height: 1.5px;
+      width: 100%;
+    }
+
+    .cartcard-container{
+        position: relative;
+        
+        display: flex;
+        flex-direction: column;
+
+        .cart-card{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            .product-image{
+                width: 38px;
+                height: 40px;
+    
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 8px;
+                }
+            }
+            .product-details{
+                margin-left: -8px;               
+                color: $Grayish-blue;
+                .title{
+                    margin-bottom: 6px;
+                }
+    
+                span{
+                    margin-left: 4px;
+                    color: black;
+                    font-weight: bold;
+                }
+            }
+        }
+       
+    }
+   
+    
+    .empty {
+      width: fit-content;
+      margin: 3.5rem auto;
+      font-size: small;
+      font-weight: bold;
+      color: $Dark-grayish-blue;
+    }
+    @media only screen and (min-width: 820px) {
+      width: 20rem;
+      transform: translate(-65%, 25%);
+    }
+    .checkout-btn{
+        position: relative;
+      
+        all: unset;
+        margin: 1rem auto;
+        padding: .5rem 0;
+        height: 2rem;
+        text-align: center;
+        width: 100%;
+        border-radius: 8px;
+        background-color: $Orange;
+        color: $white;
+    }
+  }
+
+  .light-box-container {
+    display: none;
+  }
+  @media only screen and (min-width: 820px) {
+    .light-box-container {
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      left: 0;
+      min-width: 100vw;
+      min-height: 100vh;
+      z-index: 100;
+
+      &::after {
+        content: "";
+        position: absolute;
+        background-color: $light-box-background;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        opacity: 0.7;
+      }
+      .close-icon {
+        position: absolute;
+        top: 5%;
+        left: 65%;
+        width: 1.2rem;
+        height: 1.2rem;
+        z-index: 300;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          &:hover {
+            filter: $Orange-filter-value;
+          }
+        }
+      }
+
+      .light-box-previous,
+      .light-box-next {
+        all: unset;
+        position: absolute;
+        top: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        &:hover > img {
+          filter: $Orange-filter-value;
+        }
+        img {
+          width: 12px;
+          height: 12px;
+        }
+      }
+      .light-box-next {
+        right: -1rem;
+      }
+      .light-box-previous {
+        left: -1rem;
+      }
+      .light-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        flex-direction: column;
+        width: 32%;
+
+        z-index: 1000;
+        .light-box-main-image {
+          height: 25%;
+          width: 100%;
+          display: none;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+          }
+        }
+        .light-box-thumbnails {
+          display: flex;
+          width: 100%;
+          margin-top: 1rem;
+          justify-content: space-evenly;
+          .light-thumbnail {
+            width: 18%;
+            background-color: white;
+            height: 70px;
+            border-radius: 9px;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 8px;
+              &:hover {
+                opacity: 0.3;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .main-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    nav {
+      position: relative;
+      display: flex;
+      width: 100%;
+
+      @include flexAlign($justify: space-around);
+      padding: 1.5rem;
+      @media only screen and (min-width: 820px) {
+        padding-bottom: 1rem;
+        column-gap: 2.5rem;
+      }
+      .menu-icon {
+        @media only screen and (min-width: 820px) {
+          display: none;
+        }
+      }
+      ul {
+        display: none;
+        list-style-type: none;
+        width: 30%;
+        justify-content: space-around;
+
+        @media (min-width: 820px) {
+          display: flex;
+        }
+        li a {
+          text-decoration: none;
+          color: $Grayish-blue;
+          font-size: small;
+          padding-bottom: 2.8rem;
+        }
+        li a:hover {
+          color: black;
+          border-bottom: 4px solid $Orange;
+        }
+      }
+      .cart {
+        
+        display: flex;
+        margin-left: 3rem;
+
+            .no-items{
+                position: absolute;
+                top: -.6rem;
+                font-size: small;
+                left: 1.5rem;
+                background-color: $Orange;
+                color: $white;
+                padding: .5px 8px;
+                border-radius: 50%;
+            }
+        @media only screen and (min-width: 820px) {
+          position: relative;
+          margin-left: auto;
+          padding: 2rem 1rem;
+          padding-top: 0;
+        }
+        &:hover .cart-container {
+          display: block;
+        }
+      
+      }
+      .avatar {
+        position: relative;
+        width: 2rem;
+        height: 1.5rem;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        @media only screen and (min-width: 820px) {
+          height: 3rem;
+          width: 3rem;
+          top: -1rem;
+          &:hover {
+            border-radius: 50%;
+            border: 2px solid $Orange;
+          }
+        }
+      }
+    }
+
+    .header-hr {
+      background-color: $Light-grayish-blue;
+      margin-bottom: 3.8rem;
+      border: none;
+      height: 1.5px;
+      width: 100%;
+      display: none;
+      @media only screen and (min-width: 820px) {
+        display: block;
+      }
+    }
+  }
+  .item-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .main-thumbnails-container {
+      position: relative;
+      display: none;
+    }
+    @media (min-width: 820px) {
+      flex-direction: row;
+      justify-content: space-around;
+      .main-thumbnails-container {
+        display: flex;
+        margin-top: 1rem;
+        justify-content: space-between;
+
+        .thumbnail {
+          position: relative;
+          width: 20%;
+          height: 70px;
+        }
+
+        .thumbnail img {
+          height: 100%;
+          width: 100%;
+          border-radius: 10px;
+          object-fit: cover;
+          &:hover {
+            opacity: 0.3;
+          }
+        }
+      }
+    }
+    .image-slider {
+      position: relative;
+      @media only screen and (min-width: 820px) {
+        width: 32%;
+      }
+      .slide {
+        width: 100%;
+        height: 280px;
+        display: none;
+        @media only screen and (min-width: 820px) {
+          width: 100%;
+          height: 380px;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          @media only screen and (min-width: 820px) {
+            border-radius: 10px;
+          }
+        }
+      }
+      .buttons {
+        all: unset;
+        position: absolute;
+        top: 50%;
+        @include flexAlign($justify: center);
+        height: 1rem;
+        width: 1rem;
+        padding: 0.8rem;
+        border-radius: 50%;
+        background-color: $white;
+        @media only screen and (min-width: 820px) {
+          display: none;
+        }
+      }
+      .prev {
+        left: 1rem;
+      }
+      .next {
+        right: 1rem;
+      }
+    }
+  }
+  .product {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    @media only screen and (min-width: 820px) {
+      width: 40%;
+      margin-top: 1rem;
+    }
+    .text {
+      color: $Orange;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-size: xx-large;
+    }
+    .description {
+      color: $Grayish-blue;
+      margin-bottom: 1rem;
+    }
+    .amount {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      @media only screen and (min-width: 820px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .main-discount {
+        display: flex;
+        width: 50%;
+        align-items: center;
+
+        .main-amount {
+          font-size: xx-large;
+          font-weight: 900;
+          @media only screen and (min-width: 820px) {
+            font-size: larger;
+          }
+        }
+        .discount-amount {
+          margin-left: 2rem;
+          font-size: large;
+          font-weight: 700;
+          background-color: $Pale-orange;
+          color: $Orange;
+          @media only screen and (min-width: 820px) {
+            font-size: small;
+            margin-left: 1rem;
+            width: fit-content;
+          }
+        }
+      }
+      .discount {
+        text-decoration: line-through;
+        color: $Grayish-blue;
+        @media only screen and (min-width: 820px) {
+          margin-top: 5px;
+        }
+      }
+    }
+    .cart-action {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      row-gap: 1rem;
+      @media only screen and (min-width: 820px) {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .action-buttons {
+        position: relative;
+        display: flex;
+        height: 3.5rem;
+        border-radius: 10px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        background-color: $Light-grayish-blue;
+        @media only screen and (min-width: 820px) {
+          width: 30%;
+          height: 3rem;
+        }
+        button {
+          all: unset;
+          &:hover > img {
+            opacity: 0.5;
+          }
+        }
+        .number {
+          font-size: larger;
+          font-weight: 700;
+        }
+
+        img {
+          width: 1rem;
+
+          @media only screen and (min-width: 820px) {
+            width: 0.6rem;
+          }
+        }
+      }
+      .add-cart {
+        all: unset;
+        background-color: $Orange;
+        display: flex;
+        position: relative;
+        display: flex;
+        height: 2.5rem;
+        border-radius: 10px;
+        align-items: center;
+        justify-content: center;
+        column-gap: 1rem;
+        color: $white;
+        padding: 8px 12px;
+        box-shadow: 1px 20px 8px 2px $Pale-orange;
+        @media only screen and (min-width: 820px) {
+          width: 50%;
+          height: 2rem;
+          &:hover {
+            opacity: 0.4;
+          }
+        }
+      }
+    }
+  }
+  .active {
+    border: 2px solid $Orange;
+    border-radius: 12px;
+    img {
+      opacity: 0.3;
+    }
+  }
+}
